@@ -1,0 +1,22 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.db
+*.db-wal
+*.db-shm
+
+# Storage (uploads, clips, thumbnails)
+backend/storage/uploads/
+backend/storage/clips/
+backend/storage/thumbnails/
+
+# Frontend
+frontend/.next/
+frontend/node_modules/
+frontend/.env.local
+
+# OS
+.DS_Store
+*.swp
