@@ -52,7 +52,7 @@ export function EmotionTimeline({ data }: Props) {
           tickLine={false}
         />
         <Tooltip
-          contentStyle={{ backgroundColor: "#111827", border: "1px solid #ffffff20", borderRadius: 8 }}
+          contentStyle={{ backgroundColor: "#0c0c0c", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 8 }}
           labelFormatter={(v) => `⏱ ${formatMs(Number(v))}`}
           formatter={(value, name) => [
             `${Math.round(Number(value) * 100)}%`,

@@ -1,6 +1,6 @@
 import uuid
 from pathlib import Path
-from moviepy import VideoFileClip
+from moviepy.editor import VideoFileClip
 from app.config import settings
 
 
@@ -27,12 +27,15 @@ def generate_clip(
     clip_path = str(clip_dir / f"{stem}.mp4")
     thumb_path = str(thumb_dir / f"{stem}.jpg")
 
-    with VideoFileClip(video_path) as source:
+    source = VideoFileClip(video_path)
+    try:
         video_duration_ms = source.duration * 1000
         end_ms = min(end_ms, video_duration_ms)
-        subclip = source.subclipped(start_ms / 1000, end_ms / 1000)
+        subclip = source.subclip(start_ms / 1000, end_ms / 1000)
         subclip.write_videofile(clip_path, codec="libx264", audio_codec="aac", logger=None)
         subclip.save_frame(thumb_path, t=0)
+    finally:
+        source.close()
 
     return {
         "clip_path": clip_path,

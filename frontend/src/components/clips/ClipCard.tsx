@@ -12,7 +12,7 @@ export function ClipCard({ clip }: { clip: EmotionClip }) {
   const label = EMOTION_LABELS[clip.peak_emotion as EmotionKey] ?? clip.peak_emotion;
 
   return (
-    <div className="group rounded-xl border border-white/10 bg-gray-900 overflow-hidden hover:border-white/20 transition-colors">
+    <div className="group rounded-xl border border-white/[0.07] bg-[#0c0c0c] overflow-hidden hover:border-[#D4A853]/25 transition-all duration-200">
       <div
         className="relative aspect-video bg-gray-800 cursor-pointer"
         onClick={() => setPlaying((p) => !p)}
@@ -31,7 +31,7 @@ export function ClipCard({ clip }: { clip: EmotionClip }) {
               alt={label}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
               <div className="rounded-full bg-white/20 p-3 backdrop-blur-sm">
                 <Play className="h-6 w-6 text-white fill-white" />
               </div>
@@ -53,11 +53,11 @@ export function ClipCard({ clip }: { clip: EmotionClip }) {
       </div>
 
       <div className="p-3">
-        <div className="flex items-center justify-between text-xs text-gray-400">
+        <div className="flex items-center justify-between text-xs text-white/30">
           <span>⏱ {formatMs(clip.peak_timestamp_ms)}</span>
           <span>{Math.round(clip.peak_intensity * 100)}% intensidade</span>
         </div>
-        <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-gray-800">
+        <div className="mt-1 h-[3px] w-full overflow-hidden rounded-full bg-white/[0.06]">
           <div
             className="h-full rounded-full"
             style={{ width: `${Math.round(clip.peak_intensity * 100)}%`, backgroundColor: color }}
@@ -67,7 +67,7 @@ export function ClipCard({ clip }: { clip: EmotionClip }) {
           href={api.clipDownloadUrl(clip.id)}
           download
           onClick={(e) => e.stopPropagation()}
-          className="mt-2 flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-300 transition-colors"
+          className="mt-2 flex items-center gap-1.5 text-xs text-white/20 hover:text-white/50 transition-colors"
         >
           <Download className="h-3 w-3" />
           Baixar clipe ({clip.duration_sec.toFixed(0)}s)

@@ -2,6 +2,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.database import get_db
+from app.ml.pipeline import VideoAnalysisPipeline
 from app.models.session import TherapySession, SessionStatus
 from app.models.frame import Frame
 from app.schemas.analysis import AnalysisStatusResponse
@@ -9,7 +10,15 @@ from app.config import settings
 
 router = APIRouter()
 
-_TERMINAL = {SessionStatus.complete, SessionStatus.failed}
+# Pre-warm the pipeline at import time so model loading doesn't block requests
+_pipeline: VideoAnalysisPipeline | None = None
+
+
+def get_pipeline() -> VideoAnalysisPipeline:
+    global _pipeline
+    if _pipeline is None:
+        _pipeline = VideoAnalysisPipeline()
+    return _pipeline
 
 
 @router.post("/{session_id}/analyze", status_code=202)
@@ -26,13 +35,11 @@ def start_analysis(
     if session.status == SessionStatus.complete:
         raise HTTPException(status_code=409, detail="Analysis already complete")
 
+    pipeline = get_pipeline()
     session.status = SessionStatus.queued
     db.commit()
 
-    from app.ml.pipeline import VideoAnalysisPipeline
-    pipeline = VideoAnalysisPipeline()
     background_tasks.add_task(pipeline.run, session_id)
-
     return {"session_id": session_id, "status": "queued"}
 
 

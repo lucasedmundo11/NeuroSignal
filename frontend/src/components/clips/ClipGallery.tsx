@@ -19,11 +19,12 @@ export function ClipGallery({ sessionId }: { sessionId: string }) {
       <div className="mb-4 flex flex-wrap gap-2">
         <button
           onClick={() => setEmotionFilter("")}
-          className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+          className={`rounded-full px-3 py-1 text-xs font-medium transition-all duration-150 ${
             emotionFilter === ""
-              ? "bg-violet-600 text-white"
-              : "bg-gray-800 text-gray-400 hover:text-white"
+              ? "text-black"
+              : "bg-white/[0.05] text-white/40 hover:text-white/70 hover:bg-white/[0.08]"
           }`}
+          style={emotionFilter === "" ? { background: "linear-gradient(90deg, #D4A853, #E5C76B)" } : {}}
         >
           Todos
         </button>
@@ -31,11 +32,12 @@ export function ClipGallery({ sessionId }: { sessionId: string }) {
           <button
             key={key}
             onClick={() => setEmotionFilter(key)}
-            className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+            className={`rounded-full px-3 py-1 text-xs font-medium transition-all duration-150 ${
               emotionFilter === key
-                ? "bg-violet-600 text-white"
-                : "bg-gray-800 text-gray-400 hover:text-white"
+                ? "text-black"
+                : "bg-white/[0.05] text-white/40 hover:text-white/70 hover:bg-white/[0.08]"
             }`}
+          style={emotionFilter === key ? { background: "linear-gradient(90deg, #D4A853, #E5C76B)" } : {}}
           >
             {EMOTION_LABELS[key]}
           </button>

@@ -1,11 +1,25 @@
 @import "tailwindcss";
 
+@theme {
+  --color-gold-400: #E5C76B;
+  --color-gold-500: #D4A853;
+  --color-gold-900: #1a1208;
+  --color-ns-teal-400: #5BCFB4;
+  --color-ns-teal-900: #071a16;
+}
+
 :root {
   --font-geist: "Geist", sans-serif;
+  --ns-gold: #D4A853;
+  --ns-teal: #5BCFB4;
 }
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -17,4 +31,23 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+
+@keyframes ns-orb-rotate {
+  from { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.05); }
+  to { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes ns-orb-pulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.18; }
+}
+
+.ns-orb {
+  animation: ns-orb-rotate 28s linear infinite;
+}
+
+.ns-orb-pulse {
+  animation: ns-orb-pulse 8s ease-in-out infinite;
+}

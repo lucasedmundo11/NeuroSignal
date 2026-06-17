@@ -29,7 +29,7 @@ app.add_middleware(
 
 app.include_router(sessions.router, prefix="/sessions", tags=["sessions"])
 app.include_router(analysis.router, prefix="/sessions", tags=["analysis"])
-app.include_router(emotions.router, prefix="", tags=["emotions"])
+app.include_router(emotions.router, prefix="/sessions", tags=["emotions"])
 app.include_router(clips.router, prefix="", tags=["clips"])
 
 

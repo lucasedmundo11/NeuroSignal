@@ -1,6 +1,6 @@
 from typing import Optional, Dict
 import numpy as np
-from fer import FER
+from fer.fer import FER
 
 EMOTION_KEYS = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral"]
 
@@ -33,7 +33,7 @@ class EmotionRecognizer:
         best = max(detections, key=lambda d: sum(d["emotions"].values()))
         emotions = best["emotions"]
 
-        scores = {k: float(emotions.get(k, 0.0)) for k in EMOTION_KEYS}
+        scores = {k: min(1.0, max(0.0, float(emotions.get(k, 0.0)))) for k in EMOTION_KEYS}
         dominant = max(scores, key=scores.get)
         intensity = scores[dominant]
 
